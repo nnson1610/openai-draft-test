@@ -1,0 +1,86 @@
+Gigarion Technology.
+
+Delivering Technology Solutions.
+
+IT Services and IT Consulting Ho Chi Minh 92 followers 5 employees.
+
+
+
+Overview
+
+Gigarion has been providing innovative outsourcing services and business solutions to many successful clients. Our wide range of services includes Big Data – Data Analytics, Securities Trading Solutions, SurroundCore Banking Solutions, E-commerce/Social Network App Development, and Web App Development. We focus on today’s trends of Big Data, Cloud Computing, Social Network, Mobility, and Internet of Things.
+
+
+
+Website
+
+www.gigarion.com
+
+
+
+Industry
+
+IT Services and IT Consulting
+
+
+
+Company size
+
+11-50 employees
+
+5 on LinkedIn 
+
+Includes members with current employer listed as Gigarion Technology
+
+Founded: 2022
+
+Locations: 305C/8A (307/27) Nguyen Van Troi, Ward 1, Tan Binh District., Ho Chi Minh, VN
+
+Gigarion Technology has 1 job opening
+
+Senior Software Engineer (Reactjs)
+
+About the job
+React.js - Experience & Skills
+
+▪ 5+ years of experience in building front-end systems in ReactJS.
+
+▪ Must have development experience with React/Material-UI.
+
+▪ Must have good experience with a state management tool like Redux or Zustand.
+
+▪ Must be proficient in using React hooks to build an application with great performance.
+
+▪ Must have a good understanding of data modeling and data contracts between the application and API.
+
+▪ Must have an understanding of security with X-Token or OIDC.
+
+▪ Must have an understanding of the docker container, know how to build docker images, and how to spin off containers from an image on a docker registry.
+
+▪ Building chart experience is a plus.
+
+▪ Real-time web socket experience is a plus.
+
+▪ Map and GIS experience is a plus.
+
+▪ Time series data experience is a plus.
+
+▪ Having experience of working with mono-repo is a plus.
+
+Other Experience and Skills
+
+▪ Experience with building commercial and/or enterprise applications is preferred.
+
+▪ Oil and Gas exploration and production experience is a plus.
+
+▪ The individual should be flexible and able to adapt to a dynamic environment.
+
+▪ The individual should be self-motivated and can work independently with minimal supervision, and work well as part of a team.
+
+▪ The individual should have good communication skills and the willingness and ability to jump into existing projects.
+
+▪ The individual should have good problem-solving skills.
+
+▪ Good English communication skills (verbal and written).
+
+▪ Hands-on experience in developing web applications as a team (e.g. SCRUM for agile software development, Git as version control)
