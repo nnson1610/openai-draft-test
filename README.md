@@ -12,7 +12,7 @@ npm run start:cc (code complete model)
 localhost:3000/dashboard
 ```
 
-- Create .env inside folder ./gpt-module.ENV
+- Create **.env** inside **./gpt-module** folder
 
 ```
 OPENAI_KEY=<api-key>
