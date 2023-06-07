@@ -26,7 +26,7 @@ const generateCompletion = async (
   console.log(`Called code completion function with prompt : ${prompt}`);
   const response: AxiosResponse<CreateCompletionResponse, any> =
     await openai.createCompletion({
-      model: "text-davinci-003",
+      model: GPT_CONFIG.CODE_COMPLETION_MODEL,
       prompt,
       temperature: 0,
       max_tokens: GPT_CONFIG.MAX_TOKENS,
