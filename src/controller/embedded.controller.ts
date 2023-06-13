@@ -18,9 +18,12 @@ export class EmbeddedController {
       async (req: express.Request, res: express.Response) => {
         const rootDir = dirname(require?.main?.filename || "");
         try {
-          const response = await completionService.generateCompletion(
-            req.body.message,
-            `${rootDir}${GPT_CONFIG.EMBEDDED_FILE_PATH}`
+          // const response = await completionService.generateCompletion(
+          //   req.body.message,
+          //   `${rootDir}${GPT_CONFIG.EMBEDDED_FILE_PATH}`
+          // );
+          const response = await completionService.generateChromaCompletion(
+            req.body.message
           );
           this.socketIO.emit("message", response);
           res.sendStatus(200);

@@ -48,11 +48,18 @@ export class App {
     );
   }
 
+  public async generateChromaEmbedding() {
+    await embeddingService.generateChromaEmbedding(
+      `${__dirname}${GPT_CONFIG.EMBEDDING_SOURCE_FILE_PATH}`
+    );
+  }
+
   public async start(): Promise<void> {
     const port = process.env.PORT || 3000;
     this.server = this.app.listen(port, async () => {
       console.log("Application started on port 3000!");
       await this.generateEmbedding();
+      await this.generateChromaEmbedding();
     });
     this.initSocketIo();
   }

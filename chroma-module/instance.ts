@@ -1,13 +1,19 @@
 import { ChromaClient, Collection, OpenAIEmbeddingFunction } from "chromadb";
 import CHROMA_CONFIG from "./config";
-import GPT_CONFIG from "../gpt-module/config";
-import { Metadata, Metadatas } from "chromadb/dist/main/types";
+import {
+  Embedding,
+  Embeddings,
+  Metadata,
+  Metadatas,
+} from "chromadb/dist/main/types";
 
 const chromaClient = new ChromaClient({ path: CHROMA_CONFIG.PATH });
 
-const embedder = new OpenAIEmbeddingFunction({
-  openai_api_key: GPT_CONFIG.API_KEY,
-});
+const getOpenAiEmbedder = (apiKey: string) => {
+  return new OpenAIEmbeddingFunction({
+    openai_api_key: apiKey,
+  });
+};
 
 const getCollection = async (
   collectionName: string,
@@ -16,6 +22,12 @@ const getCollection = async (
   return chromaClient.getCollection({
     name: collectionName,
     embeddingFunction: embedded,
+  });
+};
+
+const deleteCollection = async (collectionName: string) => {
+  return chromaClient.deleteCollection({
+    name: collectionName,
   });
 };
 
@@ -32,31 +44,37 @@ const createCollection = async (
 const addData = async (
   collection: Collection,
   ids: string[],
-  metadatas: Metadata | Metadatas,
   documents: string[]
 ) => {
   return await collection.add({
     ids,
-    metadatas,
     documents,
   });
 };
 
-const getData = async (
-  collection: Collection,
-  queryString: string[],
-  nResults: number
-) => {
+const getData = async ({
+  collection,
+  queryTexts,
+  queryEmbeddings,
+  nResults = 5,
+}: {
+  collection: Collection;
+  queryTexts?: string[];
+  queryEmbeddings?: Embedding | Embeddings;
+  nResults?: number;
+}) => {
   return await collection.query({
     nResults,
-    queryTexts: queryString,
+    queryTexts,
+    queryEmbeddings,
   });
 };
 
 export {
   chromaClient,
-  embedder,
+  getOpenAiEmbedder,
   getCollection,
+  deleteCollection,
   createCollection,
   addData,
   getData,

@@ -2,6 +2,7 @@ const fs = require("fs");
 import OpenAiInstance from "./instance";
 import GPT_CONFIG from "./config";
 import { OpenAIApi } from "openai";
+import * as chroma from "../chroma-module/instance";
 
 const openai = OpenAiInstance() as unknown as OpenAIApi;
 
@@ -131,6 +132,66 @@ const generateCompletion = async (
   }
 };
 
+const generateChromaCompletion = async (
+  prompt: string,
+  collectionName: string = "sample_col"
+): Promise<string> => {
+  console.log(`Called chroma completion function with prompt : ${prompt}`);
+  try {
+    // Embed the prompt using embedding model
+    let embeddedQuestionResponse = await openai.createEmbedding({
+      input: prompt,
+      model: embeddingModel,
+    });
+
+    // Some error handling
+    if (embeddedQuestionResponse.data.data.length) {
+      embeddedQuestion = embeddedQuestionResponse.data.data[0].embedding;
+    } else {
+      throw Error("Question not embedded properly");
+    }
+
+    // get an existing collection
+    const embedder = chroma.getOpenAiEmbedder(GPT_CONFIG.API_KEY);
+    const collection = await chroma.getCollection(collectionName, embedder);
+
+    if (!collection) {
+      throw new Error("Collection not found");
+    }
+
+    const data = await chroma.getData({
+      collection,
+      queryEmbeddings: embeddedQuestion as any,
+    });
+
+    let completionData = await openai.createChatCompletion({
+      model: completionModel,
+      messages: [
+        {
+          role: "user",
+          content: createPrompt(prompt, data.documents[0] as string[]),
+        },
+      ],
+      max_tokens: maxTokens,
+      temperature: 0, // Tweak for more random answers
+    });
+
+    if (!completionData.data.choices) {
+      throw new Error("No answer gotten");
+    }
+    return completionData?.data?.choices[0]?.message?.content.trim() || "";
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      console.error(error.response.status, error.response.data);
+    } else {
+      console.error(`Error with OpenAI API request: ${error.message}`);
+    }
+    throw new Error("Error");
+  }
+};
+
 export default {
   generateCompletion,
+  generateChromaCompletion,
 };

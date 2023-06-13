@@ -2,6 +2,7 @@ const fs = require("fs");
 import GPT_CONFIG from "./config";
 import OpenAiInstance from "./instance";
 import { OpenAIApi } from "openai";
+import * as chroma from "../chroma-module/instance";
 
 const openai = OpenAiInstance() as unknown as OpenAIApi;
 
@@ -15,10 +16,7 @@ const embeds_storage_prefix = "embeds:";
 
 const embeddingModel = GPT_CONFIG.EMBEDDING_MODEL;
 
-const generateEmbedding = async (sourcePath: string, destPath: string) => {
-  // Reads the raw text file
-  console.log("Embedding Started ⌛");
-
+const readDataFile = async (sourcePath: string) => {
   let rawText = fs.readFileSync(sourcePath, {
     encoding: "utf-8",
     flag: "r",
@@ -43,11 +41,17 @@ const generateEmbedding = async (sourcePath: string, destPath: string) => {
     }
   }
 
+  return paras;
+};
+
+const generateEmbedding = async (sourcePath: string, destPath: string) => {
+  // Reads the raw text file
+  console.log("Embedding Started ⌛");
+  const paras = await readDataFile(sourcePath);
   var countParas = paras.length;
 
   // Generate unix timestamp
   var startTime = new Date().getTime();
-
   // Sending data over to embedding model
   try {
     console.log("Sent file over to OpenAI 🚀");
@@ -86,6 +90,37 @@ const generateEmbedding = async (sourcePath: string, destPath: string) => {
   }
 };
 
+const generateChromaEmbedding = async (
+  sourcePath: string,
+  collectionName: string = "sample_col"
+) => {
+  const paras = await readDataFile(sourcePath);
+
+  const embedder = chroma.getOpenAiEmbedder(GPT_CONFIG.API_KEY);
+  let collection;
+
+  // get an existing collection
+  try {
+    collection = await chroma.getCollection(collectionName, embedder);
+    if (collection) {
+      await chroma.deleteCollection(collectionName);
+      collection = await chroma.createCollection(collectionName, embedder);
+    }
+  } catch (err) {
+    collection = await chroma.createCollection(collectionName, embedder);
+  }
+
+  console.log(`get/create collection: ${JSON.stringify(collection)}`);
+
+  const response = await chroma.addData(
+    collection,
+    Array.from(Array(paras.length).keys()).map((i) => `id${i}`),
+    paras
+  );
+  console.log(`add data: ${response}`);
+};
+
 export default {
   generateEmbedding,
+  generateChromaEmbedding,
 };
