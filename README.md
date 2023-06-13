@@ -1,9 +1,16 @@
-- Start command
+- ENVIRONMENT
+
+  node: >= 18
+
+  chroma: git clone https://github.com/chroma-core/chroma.git
+
+- COMMAND
 
 ```
 npm run start:ft (fine-tune model)
 npm run start:eb (embedded model)
 npm run start:cc (code complete model)
+npm run start:chroma (test chroma)
 ```
 
 - Dashboard page

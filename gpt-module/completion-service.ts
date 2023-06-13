@@ -86,7 +86,8 @@ const generateCompletion = async (
       input: prompt,
       model: embeddingModel,
     });
-
+    console.log("embeddedQuestionResponse: ");
+    console.log(embeddedQuestionResponse);
     // Some error handling
     if (embeddedQuestionResponse.data.data.length) {
       embeddedQuestion = embeddedQuestionResponse.data.data[0].embedding;
@@ -94,8 +95,14 @@ const generateCompletion = async (
       throw Error("Question not embedded properly");
     }
 
+    console.log("embeddedQuestion: ");
+    console.log(embeddedQuestion);
+
     // Find the closest count(int) paragraphs
     let closestParagraphs = findClosestParagraphs(embeddedQuestion, 5); // Tweak this value for selecting paragraphs number
+
+    console.log("closestParagraphs: ");
+    console.log(closestParagraphs);
 
     let completionData = await openai.createChatCompletion({
       model: completionModel,
