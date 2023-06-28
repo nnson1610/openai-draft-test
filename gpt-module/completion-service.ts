@@ -17,9 +17,11 @@ let embeddedQuestion: number[];
 
 const createPrompt = (question: string, paragraph: string[]) => {
   return (
-    "Answer the following question, also use your own knowledge when necessary :\n\n" +
     "Context :\n" +
     paragraph.join("\n\n") +
+    "\n\n" +
+    "Answer the following question, if the answer can not be deduced from the context, say 'I don't know' :\n\n" +
+    // "Answer the following question, if the answer can not be deduced from the context, use your own knowledge :\n\n" +
     "\n\nQuestion :\n" +
     question +
     "?" +
@@ -164,6 +166,8 @@ const generateChromaCompletion = async (
       queryEmbeddings: embeddedQuestion as any,
     });
 
+    console.log("data: ", data);
+    console.log(createPrompt(prompt, data.documents[0] as string[]));
     let completionData = await openai.createChatCompletion({
       model: completionModel,
       messages: [
@@ -173,7 +177,7 @@ const generateChromaCompletion = async (
         },
       ],
       max_tokens: maxTokens,
-      temperature: 0, // Tweak for more random answers
+      temperature: 0.5, // Tweak for more random answers
     });
 
     if (!completionData.data.choices) {

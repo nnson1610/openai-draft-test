@@ -4,6 +4,17 @@ import GPT_CONFIG from "./config";
 import * as fs from "fs";
 import { AxiosResponse } from "axios";
 const openai = OpenAiInstance() as unknown as OpenAIApi;
+const END = " \n\n###\n\n";
+
+// const createPrompt = (prompt: string): string => {
+//   return (
+//     '"""\n\nYou are a helpful assistant to answer what technology is used in my company:\n\n' +
+//     "Does the technology :\n" +
+//     prompt +
+//     "is used? :\n" +
+//     +END
+//   );
+// };
 
 async function createCompletion(
   prompt: string,
@@ -12,12 +23,14 @@ async function createCompletion(
   try {
     const response = await openai.createCompletion({
       model,
-      prompt,
-      max_tokens: GPT_CONFIG.MAX_TOKENS,
+      prompt: prompt + END,
+      max_tokens: 20 || GPT_CONFIG.MAX_TOKENS,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
       top_p: 1.0,
       temperature: 0,
+      logprobs: 2,
+      stop: [" \n\n###\n\n"],
     });
     if (response.data?.choices[0]?.text) {
       return response.data?.choices[0]?.text;

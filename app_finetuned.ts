@@ -2,7 +2,7 @@ import * as socketio from "socket.io";
 import * as express from "express";
 import * as path from "path";
 import GPT_CONFIG from "./gpt-module/config";
-import embeddingService from "./gpt-module/embedding-service";
+import finetuneService from "./gpt-module/fine-tune-service";
 import { FineTunedController } from "./src/controller/finetuned.controller";
 
 export class App {
@@ -45,15 +45,18 @@ export class App {
     const port = process.env.PORT || 3000;
     this.server = this.app.listen(port, async () => {
       console.log("Application started on port 3000!");
+
       // step 1
+      // get file upload by API https://api.openai.com/v1/files
       // console.log("Upload fine-tune...");
-      // await gptService.upload(`${__dirname}/sourceData/fineTuneData.jsonl`);
+      // await finetuneService.upload(
+      //   `${__dirname}/sourceData/fineTuneData.jsonl`
+      // );
 
       // step 2
+      // get fine-tune model by API https://api.openai.com/v1/fine-tunes
       // console.log("Create fine-tune...");
-      // await gptService.createFineTune(
-      //   `file-iYuZGT2ORALDye69JUR5NHbV`
-      // );
+      // await finetuneService.createFineTune("file-Zpw7NMJ53zEY8f7AJSnCYD7E");
     });
     this.initSocketIo();
   }

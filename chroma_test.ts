@@ -16,7 +16,7 @@ const init = async () => {
   const response = await chroma.addData(
     collection,
     ["id1", "id2"],
-    [{ source: "my_source" }, { source: "my_source" }],
+    // [{ source: "my_source" }, { source: "my_source" }],
     ["This is a document", "This is another document"]
   );
   console.log(`add data: ${response}`);

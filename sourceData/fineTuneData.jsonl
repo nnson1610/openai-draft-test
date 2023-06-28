@@ -1,1 +1,15 @@
-{"prompt":" Who are you\n\n###\n\n","completion":" Who am I\n"}
+{"prompt":"NodeJs -> ","completion":" yes "}
+{"prompt":"NestJS -> ","completion":" yes "}
+{"prompt":"ExpressJs -> ","completion":" no "}
+{"prompt":"Hapi -> ","completion":" no "}
+{"prompt":"Python -> ","completion":" yes "}
+{"prompt":"FastAPI -> ","completion":" yes "}
+{"prompt":"DJango -> ","completion":" no "}
+{"prompt":".Net -> ","completion":" yes "}
+{"prompt":"WCF -> ","completion":" yes "}
+{"prompt":"Java -> ","completion":" no "}
+{"prompt":"Spring boot -> ","completion":" no "}
+{"prompt":"MongoDB -> ","completion":" yes "}
+{"prompt":"MySQL -> ","completion":" yes "}
+{"prompt":"Oracle -> ","completion":" yes "}
+{"prompt":"MariaDB -> ","completion":" no "}
