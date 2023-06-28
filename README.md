@@ -30,3 +30,9 @@ COMPLETION_MODEL=gpt-3.5-turbo
 EMBEDDING_SOURCE_FILE_PATH=/sourceData/sourceFile.txt
 EMBEDDED_FILE_PATH=/embeddedData/embeddedFile.txt
 ```
+
+- Create **.env** inside **./chroma-module** folder
+
+```
+CHROMA_PATH=http://localhost:8000
+```
